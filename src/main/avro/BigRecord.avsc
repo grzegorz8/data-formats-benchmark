@@ -1,0 +1,15 @@
+{
+  "name": "BigRecord",
+  "type": "record",
+  "namespace": "com.getindata.schemas.avro",
+  "fields": [
+    {
+      "name": "id",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+  ]
+}
