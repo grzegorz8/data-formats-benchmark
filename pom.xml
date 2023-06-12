@@ -106,6 +106,12 @@
                         <configuration>
                             <protocVersion>3.0.0</protocVersion>
                             <includeStdTypes>true</includeStdTypes>
+                            <outputTargets>
+                                <outputTarget>
+                                    <type>java</type>
+                                    <outputDirectory>${project.build.directory}/generated-sources/proto</outputDirectory>
+                                </outputTarget>
+                            </outputTargets>
                         </configuration>
                     </execution>
                 </executions>
@@ -127,6 +133,11 @@
         </dependency>
 
         <!-- Utils -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
