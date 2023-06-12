@@ -26,12 +26,8 @@ def generate_json_records(count):
 def generate_protobuf_schema():
     schema = """
 syntax = "proto3";
-
-package test_schemas;
-
+package test;
 option java_package = "com.getindata.schemas.proto";
-
-import "google/protobuf/wrappers.proto";
 
 message TestRecord {
 """
