@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static java.lang.String.format;
-import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.io.FileUtils.byteCountToDisplaySize;
 
 public class SizeBenchmarks {
 
