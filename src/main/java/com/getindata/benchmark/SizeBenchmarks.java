@@ -49,11 +49,11 @@ public class SizeBenchmarks {
                 var snappyCompressionRate = ((double) m.size) / ((double) m.snappySize);
                 var zstdCompressionRate = ((double) m.size) / ((double) m.zstdSize);
 
-                System.out.printf("[%8s] NONE:   %s, compression ratio: %.2f%n", m.formatType, byteCountToDisplaySize(m.size), 1.0d);
-                System.out.printf("[%8s] GZIP:   %s, compression ratio: %.2f%n", m.formatType, byteCountToDisplaySize(m.gzipSize), gzipCompressionRate);
-                System.out.printf("[%8s] LZ4:    %s, compression ratio: %.2f%n", m.formatType, byteCountToDisplaySize(m.lz4Size), lz4CompressionRate);
-                System.out.printf("[%8s] SNAPPY: %s, compression ratio: %.2f%n", m.formatType, byteCountToDisplaySize(m.snappySize), snappyCompressionRate);
-                System.out.printf("[%8s] ZSTD:   %s, compression ratio: %.2f%n", m.formatType, byteCountToDisplaySize(m.zstdSize), zstdCompressionRate);
+                System.out.printf("[%8s] NONE:   %s, compression ratio: %.2f%n", m.formatType, m.size, 1.0d); //TODO human friendly
+                System.out.printf("[%8s] GZIP:   %s, compression ratio: %.2f%n", m.formatType, m.gzipSize, gzipCompressionRate);
+                System.out.printf("[%8s] LZ4:    %s, compression ratio: %.2f%n", m.formatType, m.lz4Size, lz4CompressionRate);
+                System.out.printf("[%8s] SNAPPY: %s, compression ratio: %.2f%n", m.formatType, m.snappySize, snappyCompressionRate);
+                System.out.printf("[%8s] ZSTD:   %s, compression ratio: %.2f%n", m.formatType, m.zstdSize, zstdCompressionRate);
                 writer.write(format("none+%s,%s,%.2f%n", m.formatType, m.size, 1.0d));
                 writer.write(format("gzip+%s,%s,%.2f%n", m.formatType, m.gzipSize, gzipCompressionRate));
                 writer.write(format("lz4+%s,%s,%.2f%n", m.formatType, m.lz4Size, lz4CompressionRate));
