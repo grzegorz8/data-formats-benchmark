@@ -43,7 +43,6 @@ public class SizeBenchmarks {
 
     private static void process(List<Measurements> measurements) throws IOException {
         try (FileWriter writer = new FileWriter("size_benchmark.csv")) {
-            measurements.sort(comparing(Measurements::getFormatType));
             for (Measurements m : measurements) {
                 var gzipCompressionRate = ((double) m.size) / ((double) m.gzipSize);
                 var lz4CompressionRate = ((double) m.size) / ((double) m.lz4Size);
