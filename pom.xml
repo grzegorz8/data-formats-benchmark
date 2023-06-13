@@ -23,7 +23,8 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <protobuf.version>3.23.2</protobuf.version>
 
-        <jmh.benchmarks>.*</jmh.benchmarks>
+        <jmh.benchmarks>com.getindata.benchmark.*</jmh.benchmarks>
+        <benchmarks.batch.size>1000</benchmarks.batch.size>
     </properties>
 
     <repositories>
@@ -123,12 +124,11 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <executable>python3</executable>
+                            <executable>python</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>test-generator/generate_test_sample.py</argument>
                             </arguments>
-
                         </configuration>
                         <id>generate-test-data</id>
                         <phase>generate-sources</phase>
@@ -283,6 +283,8 @@
                                         <argument>-Dbenchmarks.batch.size=${benchmarks.batch.size}</argument>
                                         <argument>-jar</argument>
                                         <argument>target/benchmarks.jar</argument>
+                                        <argument>-v</argument>
+                                        <argument>EXTRA</argument>
                                         <argument>${jmh.benchmarks}</argument>
                                     </arguments>
                                 </configuration>
