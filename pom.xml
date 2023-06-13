@@ -27,13 +27,6 @@
         <benchmarks.batch.size>1000</benchmarks.batch.size>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>maven-releases</id>
-            <url>https://nexus.303net.net/repository/maven-releases/</url>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
             <plugin>
