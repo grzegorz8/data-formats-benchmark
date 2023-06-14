@@ -3,9 +3,9 @@ import os
 import random
 import string
 
-FIELD_COUNT = 800
-NON_NULL_FIELDS = 0.2
-RECORD_COUNT = 100
+FIELD_COUNT = 55
+NON_NULL_FIELDS = 1.0
+RECORD_COUNT = 1000
 
 
 def get_random_string(length):
@@ -60,6 +60,23 @@ message TestRecord {
     return schema
 
 
+def generate_avro_schema():
+    schema = """
+{
+    "name": "TestRecord",
+    "type": "record",
+    "namespace": "com.getindata.schemas.avro",
+    "fields": [
+       
+"""
+    fields = []
+    for field_number in range(1, FIELD_COUNT + 1):
+        fields.append('{' + f'"name": "field_{field_number}", "type": ["null", "string"], "default": null' + '}')
+
+    schema += ',\n'.join(fields) + "]}"
+    return schema
+
+
 if __name__ == "__main__":
     # Test data
     os.makedirs("test-data/", exist_ok=True)
@@ -76,4 +93,6 @@ if __name__ == "__main__":
     with open("src/main/protobuf/test_record.proto", mode="w") as f:
         f.write(generate_protobuf_schema())
 
-    # TODO generate avro schema
+    os.makedirs("src/main/avro/", exist_ok=True)
+    with open("src/main/avro/test_record.avsc", mode="w") as f:
+        f.write(generate_avro_schema())
