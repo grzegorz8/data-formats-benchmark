@@ -1,6 +1,7 @@
 package com.getindata.benchmark.avro;
 
 import com.getindata.schemas.avro.TestRecord;
+import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DecoderFactory;
 import org.apache.avro.specific.SpecificDatumReader;
 
@@ -9,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AvroDeserializer {
+    private static final DatumReader<TestRecord> DATUM_READER = new SpecificDatumReader<>(TestRecord.class);
 
     public TestRecord convert(byte[] value) throws IOException {
-        var reader = new SpecificDatumReader<>(TestRecord.class);
         var decoder = DecoderFactory.get().binaryDecoder(value, null);
-        return reader.read(null, decoder);
+        return DATUM_READER.read(null, decoder);
     }
 
 

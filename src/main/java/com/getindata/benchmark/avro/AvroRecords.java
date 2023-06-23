@@ -4,7 +4,6 @@ import com.getindata.schemas.avro.TestRecord;
 import lombok.experimental.UtilityClass;
 import tech.allegro.schema.json2avro.converter.JsonAvroConverter;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static com.getindata.benchmark.json.JsonRecords.jsonRecords;
@@ -15,7 +14,8 @@ public class AvroRecords {
     private static final JsonAvroConverter JSON_AVRO_CONVERTER = new JsonAvroConverter();
 
     public static List<byte[]> avroRecordsAsBytes()  {
-        return Arrays.stream(jsonRecords())
+        return jsonRecords()
+                .stream()
                 .map(it-> JSON_AVRO_CONVERTER.convertToAvro(it.getBytes(), TestRecord.SCHEMA$))
                 .collect(toList());
     }

@@ -78,21 +78,22 @@ def generate_avro_schema():
 
 
 if __name__ == "__main__":
-    # Test data
-    os.makedirs("test-data/", exist_ok=True)
-    with open("test-data/test_data.json", mode="w") as f:
+    test_data_path = "target/test-data"
+    os.makedirs(test_data_path, exist_ok=True)
+    with open(os.path.join(test_data_path, "test_data.json"), mode="w") as f:
         f.writelines(generate_json_records(RECORD_COUNT))
 
-    # Java POJO
-    os.makedirs("target/generated-sources/pojo/com/getindata/schemas/pojo/", exist_ok=True)
-    with open("target/generated-sources/pojo/com/getindata/schemas/pojo/TestRecord.java", mode="w") as f:
+    pojo_path = "target/generated-sources/pojo/com/getindata/schemas/pojo"
+    os.makedirs(pojo_path, exist_ok=True)
+    with open(os.path.join(pojo_path, "TestRecord.java"), mode="w") as f:
         f.write(generate_java_class())
 
-    # Protobuf Java POJO
-    os.makedirs("src/main/protobuf/", exist_ok=True)
-    with open("src/main/protobuf/test_record.proto", mode="w") as f:
+    protobuf_path = "target/schemas/proto"
+    os.makedirs(protobuf_path, exist_ok=True)
+    with open(os.path.join(protobuf_path, "test_record.proto"), mode="w") as f:
         f.write(generate_protobuf_schema())
 
-    os.makedirs("src/main/avro/", exist_ok=True)
-    with open("src/main/avro/test_record.avsc", mode="w") as f:
+    avro_path = "target/schemas/avro"
+    os.makedirs(avro_path, exist_ok=True)
+    with open(os.path.join(avro_path, "test_record.avsc"), mode="w") as f:
         f.write(generate_avro_schema())
