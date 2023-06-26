@@ -33,7 +33,7 @@ public class AvroBenchmark {
     }
 
     @Benchmark
-    public void readAvroObjects(AvroBenchmark.BenchmarkState state, Blackhole blackhole) throws Exception {
+    public void readAvroObjects(AvroBenchmark.BenchmarkState state, Blackhole blackhole) {
         blackhole.consume(AVRO_CONVERTER.convert(state.inputRecords));
     }
 

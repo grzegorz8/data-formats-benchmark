@@ -33,7 +33,7 @@ public class JsonBenchmark {
     }
 
     @Benchmark
-    public void readJsonObjects(JsonBenchmark.BenchmarkState state, Blackhole blackhole) throws Exception {
+    public void readJsonObjects(JsonBenchmark.BenchmarkState state, Blackhole blackhole) {
         blackhole.consume(JSON_CONVERTER.convert(state.inputRecords));
     }
 

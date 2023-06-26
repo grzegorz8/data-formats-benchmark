@@ -1,6 +1,5 @@
 package com.getindata.benchmark.proto;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -34,7 +33,7 @@ public class ProtoBenchmark {
     }
 
     @Benchmark
-    public void readProtoObjects(BenchmarkState state, Blackhole blackhole) throws InvalidProtocolBufferException {
+    public void readProtoObjects(BenchmarkState state, Blackhole blackhole) {
         blackhole.consume(PROTO_CONVERTER.convert(state.inputRecords));
     }
 

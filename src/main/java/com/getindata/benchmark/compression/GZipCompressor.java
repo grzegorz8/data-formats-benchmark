@@ -1,4 +1,4 @@
-package com.getindata.benchmark.utils;
+package com.getindata.benchmark.compression;
 
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -10,7 +10,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 @UtilityClass
-public class GZipUtils {
+public class GZipCompressor {
 
     @SneakyThrows
     public static byte[] compress(byte[] input) {

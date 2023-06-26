@@ -1,4 +1,4 @@
-package com.getindata.benchmark.utils;
+package com.getindata.benchmark.compression;
 
 import com.github.luben.zstd.ZstdInputStream;
 import com.github.luben.zstd.ZstdOutputStream;
@@ -10,16 +10,17 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 @UtilityClass
-public class ZstdUtils {
+public class ZstdCompressor {
 
     @SneakyThrows
-    public static byte[] decompress(byte[] input)  {
+    public static byte[] decompress(byte[] input) {
         try (ZstdInputStream stream = new ZstdInputStream(new ByteArrayInputStream(input))) {
             return IOUtils.toByteArray(stream);
         }
     }
+
     @SneakyThrows
-    public static byte[] compress(byte[] input)  {
+    public static byte[] compress(byte[] input) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream(input.length);
              ZstdOutputStream cos = new ZstdOutputStream(baos)) {
             cos.write(input);

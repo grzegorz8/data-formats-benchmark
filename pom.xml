@@ -296,7 +296,57 @@
                 </plugins>
             </build>
         </profile>
-        <!-- TODO: size benchmarks -->
+        <profile>
+            <id>run-size-benchmark</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>shade</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>benchmarks</finalName>
+                                    <transformers>
+                                        <transformer
+                                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                            <mainClass>com.getindata.benchmark.SizeBenchmark</mainClass>
+                                        </transformer>
+                                    </transformers>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>run-benchmark-jar</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>java</executable>
+                                    <arguments>
+                                        <argument>-Dbenchmarks.batch.size=${benchmarks.batch.size}</argument>
+                                        <argument>-jar</argument>
+                                        <argument>target/benchmarks.jar</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 
 </project>

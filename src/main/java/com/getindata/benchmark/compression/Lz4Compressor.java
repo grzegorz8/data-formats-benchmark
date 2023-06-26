@@ -1,4 +1,4 @@
-package com.getindata.benchmark.utils;
+package com.getindata.benchmark.compression;
 
 import lombok.SneakyThrows;
 import net.jpountz.lz4.LZ4FrameInputStream;
@@ -8,7 +8,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-public class Lz4Utils {
+public class Lz4Compressor {
 
     @SneakyThrows
     public static byte[] decompress(byte[] input) {
