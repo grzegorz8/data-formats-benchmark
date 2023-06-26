@@ -5,8 +5,4 @@ target/
 # Mac
 .DS_Store
 
-# Generated data
-src/main/protobuf/
-src/main/avro/
-test-data/
 /data-formats-benchmark.iml
