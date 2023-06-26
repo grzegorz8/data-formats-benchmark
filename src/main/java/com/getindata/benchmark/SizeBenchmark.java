@@ -1,9 +1,6 @@
 package com.getindata.benchmark;
 
-import com.getindata.benchmark.compression.GZipCompressor;
-import com.getindata.benchmark.compression.Lz4Compressor;
-import com.getindata.benchmark.compression.SnappyCompressor;
-import com.getindata.benchmark.compression.ZstdCompressor;
+import com.getindata.benchmark.compression.Compressor;
 import lombok.Builder;
 import lombok.Value;
 
@@ -43,6 +40,11 @@ public class SizeBenchmark {
         process(List.of(json(), proto(), avro()));
     }
 
+    private static final Compressor gzipCompressor = Compressor.byName("gzip");
+    private static final Compressor zstdCompressor = Compressor.byName("lz4");
+    private static final Compressor lz4Compressor = Compressor.byName("zstd");
+    private static final Compressor snappyCompressor = Compressor.byName("snappy");
+
     private static void process(List<Measurements> measurements) throws IOException {
         try (FileWriter writer = new FileWriter("size_benchmark.csv")) {
             for (Measurements m : measurements) {
@@ -68,10 +70,10 @@ public class SizeBenchmark {
 
     private static Measurements json() {
         var bytes = jsonRecordsAsBytes();
-        var gzipCompressed = bytes.stream().map(GZipCompressor::compress).collect(toList());
-        var lz4Compressed = bytes.stream().map(Lz4Compressor::compress).collect(toList());
-        var snappyCompressed = bytes.stream().map(SnappyCompressor::compress).collect(toList());
-        var zstdCompressed = bytes.stream().map(ZstdCompressor::compress).collect(toList());
+        var gzipCompressed = bytes.stream().map(gzipCompressor::compress).collect(toList());
+        var lz4Compressed = bytes.stream().map(lz4Compressor::compress).collect(toList());
+        var snappyCompressed = bytes.stream().map(snappyCompressor::compress).collect(toList());
+        var zstdCompressed = bytes.stream().map(zstdCompressor::compress).collect(toList());
 
         return Measurements.builder()
                 .formatType(JSON)
@@ -85,10 +87,10 @@ public class SizeBenchmark {
 
     private static Measurements proto() {
         var bytes = protoRecordsAsBytes();
-        var gzipCompressed = bytes.stream().map(GZipCompressor::compress).collect(toList());
-        var lz4Compressed = bytes.stream().map(Lz4Compressor::compress).collect(toList());
-        var snappyCompressed = bytes.stream().map(SnappyCompressor::compress).collect(toList());
-        var zstdCompressed = bytes.stream().map(ZstdCompressor::compress).collect(toList());
+        var gzipCompressed = bytes.stream().map(gzipCompressor::compress).collect(toList());
+        var lz4Compressed = bytes.stream().map(lz4Compressor::compress).collect(toList());
+        var snappyCompressed = bytes.stream().map(snappyCompressor::compress).collect(toList());
+        var zstdCompressed = bytes.stream().map(zstdCompressor::compress).collect(toList());
 
         return Measurements.builder()
                 .formatType(PROTOBUF)
@@ -102,10 +104,10 @@ public class SizeBenchmark {
 
     private static Measurements avro() {
         var bytes = avroRecordsAsBytes();
-        var gzipCompressed = bytes.stream().map(GZipCompressor::compress).collect(toList());
-        var lz4Compressed = bytes.stream().map(Lz4Compressor::compress).collect(toList());
-        var snappyCompressed = bytes.stream().map(SnappyCompressor::compress).collect(toList());
-        var zstdCompressed = bytes.stream().map(ZstdCompressor::compress).collect(toList());
+        var gzipCompressed = bytes.stream().map(gzipCompressor::compress).collect(toList());
+        var lz4Compressed = bytes.stream().map(lz4Compressor::compress).collect(toList());
+        var snappyCompressed = bytes.stream().map(snappyCompressor::compress).collect(toList());
+        var zstdCompressed = bytes.stream().map(zstdCompressor::compress).collect(toList());
 
         return Measurements.builder()
                 .formatType(AVRO)
