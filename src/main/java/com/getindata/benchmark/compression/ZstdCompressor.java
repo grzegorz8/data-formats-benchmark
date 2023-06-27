@@ -1,29 +1,25 @@
 package com.getindata.benchmark.compression;
 
-import com.github.luben.zstd.ZstdInputStream;
-import com.github.luben.zstd.ZstdOutputStream;
+import com.github.luben.zstd.Zstd;
+import com.github.luben.zstd.ZstdCompressCtx;
+import com.github.luben.zstd.ZstdDecompressCtx;
 import lombok.SneakyThrows;
-import org.apache.commons.io.IOUtils;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 
 public class ZstdCompressor implements Compressor {
+    private final ZstdDecompressCtx decompressCtx = new ZstdDecompressCtx();
+    private final ZstdCompressCtx compressCtx = new ZstdCompressCtx();
+
 
     @SneakyThrows
     public byte[] decompress(byte[] input) {
-        try (ZstdInputStream stream = new ZstdInputStream(new ByteArrayInputStream(input))) {
-            return IOUtils.toByteArray(stream);
-        }
+        long originalSize = Zstd.decompressedSize(input);
+        return decompressCtx.decompress(input, (int) originalSize);
     }
 
     @SneakyThrows
     public byte[] compress(byte[] input) {
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(input.length);
-             ZstdOutputStream cos = new ZstdOutputStream(baos)) {
-            cos.write(input);
-            cos.close();
-            return baos.toByteArray();
-        }
+        return compressCtx.compress(input);
     }
+
 }
+
