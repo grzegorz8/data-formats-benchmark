@@ -1,29 +1,23 @@
 package com.getindata.benchmark.compression;
 
 import lombok.SneakyThrows;
-import net.jpountz.lz4.LZ4FrameInputStream;
-import net.jpountz.lz4.LZ4FrameOutputStream;
-import org.apache.commons.io.IOUtils;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import net.jpountz.lz4.LZ4CompressorWithLength;
+import net.jpountz.lz4.LZ4DecompressorWithLength;
+import net.jpountz.lz4.LZ4Factory;
 
 public class Lz4Compressor implements Compressor {
 
+    private final LZ4Factory factory = LZ4Factory.fastestInstance();
+    private final LZ4CompressorWithLength compressor = new LZ4CompressorWithLength(factory.fastCompressor());
+    private final LZ4DecompressorWithLength decompressor = new LZ4DecompressorWithLength(factory.fastDecompressor());
+
     @SneakyThrows
     public byte[] decompress(byte[] input) {
-        try (LZ4FrameInputStream stream = new LZ4FrameInputStream(new ByteArrayInputStream(input))) {
-            return IOUtils.toByteArray(stream);
-        }
+        return decompressor.decompress(input);
     }
 
     @SneakyThrows
     public byte[] compress(byte[] input) {
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(input.length);
-             LZ4FrameOutputStream os = new LZ4FrameOutputStream(baos)) {
-            os.write(input);
-            os.close();
-            return baos.toByteArray();
-        }
+        return compressor.compress(input);
     }
 }
